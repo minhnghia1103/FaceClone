@@ -27,7 +27,7 @@ function FormLogin() {
       <Button variant="success" className="w-50 " onClick={() => setModalShow(true)}>
         Create new account
       </Button>
-      <Register show={modalShow} onHide={() => setModalShow(false)} />
+      <Register show={modalShow} onHide={() => setModalShow(false)} onShow={() => setModalShow(true)} />
     </Form>
   );
 }
