@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import FormLogin from "./FormLogin";
 
-function Login() {
+function Login(props) {
   return (
     <>
       <div className="container">
@@ -11,7 +11,7 @@ function Login() {
             <h2>Facebook helps you connect and share with the people in your life.</h2>
           </div>
           <div className="col">
-            <FormLogin />
+            <FormLogin checkLoggined={props.setLoggedIn} />
           </div>
         </div>
       </div>
