@@ -8,24 +8,31 @@ function Register(props) {
   const [fullname, setFullname] = useState();
   const [email, setEmail] = useState();
   const [password, setPassWord] = useState();
+  const [checkInfor, setCheckInfor] = useState(true);
 
   async function handleSubmit(e) {
     e.preventDefault();
     if (fullname && email && password) {
       try {
         const data = await axios.post("http://localhost:8080/adduser", { fullname, email, password });
-        if (data.status == "existEmail") {
-          alert("Ton tai email");
-        } else {
+        let logFromServer = data.data.status;
+        if (logFromServer === "existEmail") {
+          setCheckInfor(false);
+          alert("Email đã tồn tại trong hệ thống");
+        } else if (logFromServer === "success") {
+          setCheckInfor(true);
           console.log("User was successfully created.");
           setFullname("");
           setEmail("");
           setPassWord("");
+        } else {
+          console.log("There was an error not exception.");
         }
       } catch (e) {
         console.log("There was an error.");
       }
     } else {
+      setCheckInfor(false);
       alert("Not enought information!");
     }
   }
@@ -39,14 +46,14 @@ function Register(props) {
       <Modal.Body>
         <Form onSubmit={handleSubmit}>
           <Form.Group className="mb-3" controlId="formBasicFullName">
-            <Form.Control type="text" placeholder="Fullname" onChange={(e) => setFullname(e.target.value)} />
+            <Form.Control type="text" placeholder="Fullname" onChange={(e) => setFullname(e.target.value)} autoComplete="off" />
           </Form.Group>
           <Form.Group className="mb-3" controlId="formBasicEmail">
-            <Form.Control type="email" placeholder="Email address" onChange={(e) => setEmail(e.target.value)} />
+            <Form.Control type="email" placeholder="Email address" onChange={(e) => setEmail(e.target.value)} autoComplete="off" />
           </Form.Group>
 
           <Form.Group className="mb-3" controlId="formBasicPassword">
-            <Form.Control type="password" placeholder="Password" onChange={(e) => setPassWord(e.target.value)} />
+            <Form.Control type="password" placeholder="Password" onChange={(e) => setPassWord(e.target.value)} autoComplete="off" />
           </Form.Group>
 
           {["radio"].map((type) => (
@@ -55,7 +62,7 @@ function Register(props) {
               <Form.Check inline label="Male" name="group1" type={type} id={`inline-${type}-2`} />
             </div>
           ))}
-          <Button type="submit" variant="success" onClick={fullname && email && password ? props.onHide : props.onShow}>
+          <Button type="submit" variant="success" onClick={fullname && email && password && checkInfor ? props.onHide : props.onShow}>
             Sign Up
           </Button>
         </Form>
