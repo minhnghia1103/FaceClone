@@ -1,7 +1,7 @@
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
 import React, { useState, useEffect } from "react";
-import Register from "../register/Register";
+import Register from "./register/Register";
 import axios from "axios";
 
 function FormLogin(props) {
@@ -15,7 +15,7 @@ function FormLogin(props) {
       const response = await axios.post("http://localhost:8080/login", { email, password });
       if (response.data.status) {
         localStorage.setItem("token", response.data.token);
-        localStorage.setItem("fullname", response.data.data.fullname);
+        localStorage.setItem("idUser", response.data.data._id);
         props.checkLoggined(true);
       } else {
         alert("Sai cmmm mat khau/email r");

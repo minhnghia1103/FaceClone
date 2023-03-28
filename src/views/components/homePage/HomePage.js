@@ -6,7 +6,7 @@ function HomePage(props) {
   function handLogouted() {
     props.setLoggedIn(false);
     localStorage.removeItem("token");
-    localStorage.removeItem("fullname");
+    localStorage.removeItem("userId");
   }
   return (
     <>
