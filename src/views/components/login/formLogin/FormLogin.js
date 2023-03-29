@@ -25,8 +25,8 @@ function FormLogin(props) {
     }
   }
   return (
-    <>
-      <Form onSubmit={handleLogin}>
+    <div className="border border-1 rounded-3 my-5">
+      <Form onSubmit={handleLogin} className="p-4">
         <Form.Group className="mb-3" controlId="formBasicEmail">
           <Form.Label>Email address</Form.Label>
           <Form.Control type="email" placeholder="Enter email" autoComplete="off" onChange={(e) => setEmail(e.target.value)} />
@@ -41,14 +41,14 @@ function FormLogin(props) {
           <Button variant="primary" type="submit" className="w-100">
             Submit
           </Button>
-          <Form.Text className="text-muted">Forgotten password?</Form.Text>
+          <Form.Text className="text-muted text-primary">Forgotten password?</Form.Text>
         </Form.Group>
       </Form>
-      <Button variant="success" className="w-50 " onClick={() => setModalShow(true)}>
+      <Button variant="success" className="w-50 btnCreate" onClick={() => setModalShow(true)}>
         Create new account
       </Button>
       <Register show={modalShow} onHide={() => setModalShow(false)} onShow={() => setModalShow(true)} />
-    </>
+    </div>
   );
 }
 
